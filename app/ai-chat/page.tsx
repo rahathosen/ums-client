@@ -102,15 +102,43 @@ export default function AIChatPage() {
                     }`}
                   >
                     {m.role === "assistant" ? (
-                      <ul className="list-decimal list-inside space-y-2">
-                        {m.content.split(/\d+\.\s+/).map((item, index) =>
-                          item.trim() ? (
-                            <li key={index} className="flex items-center gap-2">
-                              <span>{item}</span>
-                            </li>
-                          ) : null
-                        )}
-                      </ul>
+                      // Detect the thinking part first (before the separator "---")
+                      m.content.includes("user asked") ? (
+                        <div>
+                          {/* Highlighted "AI is thinking..." label */}
+                          <div className="text-gray-400 italic">
+                            <span className="font-semibold text-primary">
+                              AI Thought...
+                            </span>
+                            <div>{m.content.split("---")[0]}</div>
+                          </div>
+                          <hr className="my-4" />
+                          <div>
+                            {/* Highlighted "Output" label */}
+                            <div className="text-gray-800">
+                              <span className="font-semibold text-primary">
+                                AI Answer:
+                              </span>
+                              <div>{m.content.split("---")[1]}</div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        // If no thinking part, just display the regular answer
+                        <ul className="list-decimal list-inside space-y-2">
+                          {m.content.split(/\d+\.\s+/).map((item, index) =>
+                            item.trim() ? (
+                              <li
+                                key={index}
+                                className="flex items-center gap-2"
+                              >
+                                {/* <Send className="w-4 h-4 text-gray-500" /> */}
+                                <span>{item}</span>
+                              </li>
+                            ) : null
+                          )}
+                        </ul>
+                      )
                     ) : (
                       <span>{m.content}</span>
                     )}
