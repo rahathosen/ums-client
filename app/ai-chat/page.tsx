@@ -49,7 +49,9 @@ export default function AIChatPage() {
         const botMessage: Message = {
           id: Date.now().toString(),
           role: "assistant",
-          content: data.choices[0]?.message?.content || "Sorry, I couldn't understand that.",
+          content:
+            data.choices[0]?.message?.content ||
+            "Sorry, I couldn't understand that.",
         };
         setMessages((prev) => [...prev, botMessage]);
       }
@@ -63,10 +65,18 @@ export default function AIChatPage() {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
-        <Breadcrumb items={[{ label: "AI Chat Assistant", href: "/ai-chat" }]} />
+        <Breadcrumb
+          items={[{ label: "AI Chat Assistant", href: "/ai-chat" }]}
+        />
         <div className="relative py-16 mb-12">
-          <BackgroundBricks patternColor="#fb3a5d" backgroundColor="#f8f9fa" className="opacity-10" />
-          <h1 className="text-4xl md:text-5xl font-bold text-center relative z-10">AI Chat Assistant</h1>
+          <BackgroundBricks
+            patternColor="#fb3a5d"
+            backgroundColor="#f8f9fa"
+            className="opacity-10"
+          />
+          <h1 className="text-4xl md:text-5xl font-bold text-center relative z-10">
+            AI Chat Assistant
+          </h1>
         </div>
 
         <Card className="max-w-3xl mx-auto bg-white">
@@ -76,17 +86,44 @@ export default function AIChatPage() {
           <CardContent>
             <div className="space-y-4 mb-4 h-[400px] overflow-y-auto">
               {messages.map((m) => (
-                <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div
+                  key={m.id}
+                  className={`flex ${
+                    m.role === "user" ? "justify-end" : "justify-start"
+                  }`}
+                >
                   <div
-                    className={`rounded-lg p-3 max-w-[80%] ${
-                      m.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
+                    className={`rounded-lg p-3 max-w-[80%] whitespace-pre-line ${
+                      m.role === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted"
                     }`}
                   >
-                    {m.content}
+                    {m.role === "assistant" ? (
+                      <ul className="list-decimal list-inside space-y-2">
+                        {m.content.split(/\d+\.\s+/).map((item, index) =>
+                          item.trim() ? (
+                            <li key={index} className="flex items-center gap-2">
+                              <Send className="w-4 h-4 text-gray-500" />
+                              <span>{item}</span>
+                            </li>
+                          ) : null
+                        )}
+                      </ul>
+                    ) : (
+                      <span>{m.content}</span>
+                    )}
                   </div>
                 </div>
               ))}
-              {loading && <div className="text-gray-500">AI is typing...</div>}
+
+              {loading && (
+                <div className="text-gray-500">
+                  <span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#535353] via-[#c9c9c9] to-[#535353] bg-[200%_auto] bg-clip-text text-center text-base font-medium text-transparent dark:from-[#ACACAC] dark:via-[#363636] dark:to-[#ACACAC]">
+                    AI is thinking...
+                  </span>
+                </div>
+              )}
             </div>
             <form onSubmit={handleSubmit} className="flex gap-2">
               <Input

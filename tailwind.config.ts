@@ -1,5 +1,5 @@
-import type { Config } from "tailwindcss"
-import { fontFamily } from "tailwindcss/defaultTheme"
+import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 import tailwindcssAnimate from "tailwindcss-animate";
 const config: Config = {
   darkMode: ["class"],
@@ -61,10 +61,19 @@ const config: Config = {
           "2xl": "1400px",
         },
       },
+      animation: {
+        "text-gradient": "text-gradient 1.5s linear infinite",
+      },
+      keyframes: {
+        "text-gradient": {
+          to: {
+            backgroundPosition: "200% center",
+          },
+        },
+      },
     },
   },
   plugins: [tailwindcssAnimate],
-}
+};
 
-export default config
-
+export default config;
