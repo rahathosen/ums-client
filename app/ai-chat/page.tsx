@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import BackgroundBricks from "../components/background-bricks";
 import { useState } from "react";
+import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 interface Message {
   id: string;
@@ -104,7 +106,6 @@ export default function AIChatPage() {
                         {m.content.split(/\d+\.\s+/).map((item, index) =>
                           item.trim() ? (
                             <li key={index} className="flex items-center gap-2">
-                              <Send className="w-4 h-4 text-gray-500" />
                               <span>{item}</span>
                             </li>
                           ) : null
@@ -118,11 +119,21 @@ export default function AIChatPage() {
               ))}
 
               {loading && (
-                <div className="text-gray-500">
-                  <span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#535353] via-[#c9c9c9] to-[#535353] bg-[200%_auto] bg-clip-text text-center text-base font-medium text-transparent dark:from-[#ACACAC] dark:via-[#363636] dark:to-[#ACACAC]">
-                    AI is thinking...
-                  </span>
-                </div>
+                <motion.h1
+                  className={cn(
+                    "bg-[linear-gradient(110deg,#bfbfbf,35%,#000,50%,#bfbfbf,75%,#bfbfbf)] dark:bg-[linear-gradient(110deg,#404040,35%,#fff,50%,#404040,75%,#404040)]",
+                    "bg-[length:200%_100%] bg-clip-text text-base font-medium text-transparent"
+                  )}
+                  initial={{ backgroundPosition: "200% 0" }}
+                  animate={{ backgroundPosition: "-200% 0" }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 2,
+                    ease: "linear",
+                  }}
+                >
+                  AI is thinking...
+                </motion.h1>
               )}
             </div>
             <form onSubmit={handleSubmit} className="flex gap-2">

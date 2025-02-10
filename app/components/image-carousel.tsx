@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
   {
@@ -17,25 +17,27 @@ const images = [
     src: "https://images.unsplash.com/photo-1571443979997-d25042c872e1?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     alt: "University library interior",
   },
-]
+];
 
 export default function ImageCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [])
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length)
-  }
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length
+    );
+  };
 
   const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
-  }
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
 
   return (
     <div className="relative h-[calc(100vh-4rem)] min-h-[600px] max-h-[800px] w-full overflow-hidden">
@@ -60,29 +62,18 @@ export default function ImageCarousel() {
       ))}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/75 transition-colors"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/50 text-secondary/70 hover:bg-black/75 transition-colors"
         aria-label="Previous image"
       >
         <ChevronLeft className="h-6 w-6" />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/75 transition-colors"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/50 text-secondary/70 hover:bg-black/75 transition-colors"
         aria-label="Next image"
       >
         <ChevronRight className="h-6 w-6" />
       </button>
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex space-x-2">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full ${index === currentIndex ? "bg-white" : "bg-white/50"}`}
-            aria-label={`Go to image ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
-  )
+  );
 }
-
