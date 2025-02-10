@@ -144,7 +144,7 @@ export default function AIChatPage() {
                     }`}
                   >
                     {m.role === "assistant" ? (
-                      m.content.includes("user asked") ? (
+                      m.content.includes("user asked the user") ? (
                         <div>
                           <div className="text-gray-400 italic">
                             <span className="font-semibold text-primary">
