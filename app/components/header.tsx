@@ -219,11 +219,9 @@ export default function Header() {
                 />
               </div>
               <div className="hidden sm:block">
-                <h1 className="font-bold text-xl leading-none">
-                  Industrial Economics
-                </h1>
+                <h1 className="font-bold text-xl leading-none">Techsand</h1>
                 <p className="text-sm text-muted-foreground">
-                  University of Technology
+                  International University
                 </p>
               </div>
             </Link>
