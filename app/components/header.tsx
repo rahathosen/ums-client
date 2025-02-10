@@ -1,29 +1,29 @@
-"use client"
-import { Menu, X, Search, ChevronDown, ChevronRight } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import { useState, useRef, useEffect } from "react"
+"use client";
+import { Menu, X, Search, ChevronDown, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useRef, useEffect } from "react";
 
 type MenuItem = {
-  name: string
-  href: string
-  submenu: (SubMenuItem | SubMenuSection)[]
-}
+  name: string;
+  href: string;
+  submenu: (SubMenuItem | SubMenuSection)[];
+};
 
 type SubMenuItem = {
-  name: string
-  href: string
-}
+  name: string;
+  href: string;
+};
 
 type SubMenuSection = {
-  title: string
-  items: SubMenuItem[]
-}
+  title: string;
+  items: SubMenuItem[];
+};
 
 function isSubMenuSection(
   item: SubMenuItem | SubMenuSection
 ): item is SubMenuSection {
-  return "title" in item
+  return "title" in item;
 }
 
 const menuItems: MenuItem[] = [
@@ -54,11 +54,25 @@ const menuItems: MenuItem[] = [
     href: "/academics",
     submenu: [
       {
-        title: "Programs",
+        title: "Undergraduate Programs",
+        href: "/academics",
         items: [
-          { name: "Undergraduate Programs", href: "/academics/undergraduate" },
-          { name: "Graduate Programs", href: "/academics/graduate" },
-          { name: "Online Learning", href: "/academics/online" },
+          {
+            name: "Bachelor of Science in Industrial Economics",
+            href: "/academics/Bachelor-of-Science-in-Industrial-Economics",
+          },
+          {
+            name: "Bachelor of Science in Computer Science and Engineering",
+            href: "/academics/bachelor-of-science-in-computer-science-and-engineering",
+          },
+          {
+            name: "Bachelor of Science in Technology Management",
+            href: "/academics/bachelor-of-science-in-computer-science-and-engineering",
+          },
+          {
+            name: "ALL Programs",
+            href: "/academics",
+          },
         ],
       },
       {
@@ -75,7 +89,7 @@ const menuItems: MenuItem[] = [
     name: "Admissions",
     href: "/admissions",
     submenu: [
-      { name: "Undergraduate Admissions", href: "/admissions/undergraduate" },
+      { name: "Undergraduate Admissions", href: "/admission" },
       { name: "Graduate Admissions", href: "/admissions/graduate" },
       { name: "International Students", href: "/admissions/international" },
       { name: "Financial Aid", href: "/admissions/financial-aid" },
@@ -85,7 +99,7 @@ const menuItems: MenuItem[] = [
     name: "Research",
     href: "/research",
     submenu: [
-      { name: "Research Centers", href: "/research/centers" },
+      { name: "Research Centers", href: "/research" },
       { name: "Publications", href: "/research/publications" },
       { name: "Partnerships", href: "/research/partnerships" },
       { name: "Funding Opportunities", href: "/research/funding" },
@@ -99,6 +113,7 @@ const menuItems: MenuItem[] = [
       { name: "Dining", href: "/campus-life/dining" },
       { name: "Athletics", href: "/campus-life/athletics" },
       { name: "Student Organizations", href: "/campus-life/organizations" },
+      { name: "Career", href: "/career" },
     ],
   },
   {
@@ -116,7 +131,10 @@ const menuItems: MenuItem[] = [
     href: "/news-events",
     submenu: [
       { name: "University News", href: "/news-events/news" },
-      { name: "Event Calendar", href: "/news-events/calendar" },
+      { name: "Events", href: "/events" },
+      { name: "Notices", href: "/notices" },
+      { name: "Gallery", href: "/gallery" },
+      { name: "Event Calendar", href: "/events" },
       { name: "Press Releases", href: "/news-events/press-releases" },
       { name: "Media Resources", href: "/news-events/media-resources" },
     ],
@@ -124,58 +142,61 @@ const menuItems: MenuItem[] = [
   {
     name: "Ideas",
     href: "/three-zeros",
-    submenu: [
-      { name: "Three Zeros", href: "/three-zeros" },
-    ],
+    submenu: [{ name: "Three Zeros", href: "/three-zeros" }],
   },
-]
+];
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null)
-  const [expandedMobileMenus, setExpandedMobileMenus] = useState<string[]>([])
-  const [isScrolled, setIsScrolled] = useState(false)
-  const submenuRef = useRef<HTMLDivElement>(null)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [expandedMobileMenus, setExpandedMobileMenus] = useState<string[]>([]);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const submenuRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const toggleMobileMenu = (menuName: string) => {
     setExpandedMobileMenus((prev) =>
-      prev.includes(menuName) ? prev.filter((name) => name !== menuName) : [...prev, menuName],
-    )
-  }
+      prev.includes(menuName)
+        ? prev.filter((name) => name !== menuName)
+        : [...prev, menuName]
+    );
+  };
 
   const handleMouseEnter = (menuName: string) => {
     if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
+      clearTimeout(timeoutRef.current);
     }
-    setActiveSubmenu(menuName)
-  }
+    setActiveSubmenu(menuName);
+  };
 
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
-      setActiveSubmenu(null)
-    }, 300)
-  }
+      setActiveSubmenu(null);
+    }, 300);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (submenuRef.current && !submenuRef.current.contains(event.target as Node)) {
-        setActiveSubmenu(null)
+      if (
+        submenuRef.current &&
+        !submenuRef.current.contains(event.target as Node)
+      ) {
+        setActiveSubmenu(null);
       }
-    }
+    };
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40)
-    }
+      setIsScrolled(window.scrollY > 40);
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
-    window.addEventListener("scroll", handleScroll)
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <header
@@ -198,8 +219,12 @@ export default function Header() {
                 />
               </div>
               <div className="hidden sm:block">
-                <h1 className="font-bold text-xl leading-none">Industrial Economics</h1>
-                <p className="text-sm text-muted-foreground">University of Technology</p>
+                <h1 className="font-bold text-xl leading-none">
+                  Industrial Economics
+                </h1>
+                <p className="text-sm text-muted-foreground">
+                  University of Technology
+                </p>
               </div>
             </Link>
             <div className="hidden lg:flex items-center space-x-1">
@@ -230,67 +255,72 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-expanded={isMenuOpen}
               >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                {isMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
               </button>
             </div>
           </div>
         </div>
 
         {/* Desktop Submenu - Full Width */}
-        {activeSubmenu && menuItems.find((item) => item.name === activeSubmenu)?.submenu && (
-    <div
-      ref={submenuRef}
-      className="absolute left-0 w-full bg-background border-y shadow-lg overflow-hidden transition-all duration-300 ease-in-out"
-      style={{
-        top: "64px",
-        maxHeight: activeSubmenu ? "500px" : "0",
-        opacity: activeSubmenu ? 1 : 0,
-      }}
-      onMouseEnter={() => handleMouseEnter(activeSubmenu)}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {menuItems
-            .find((item) => item.name === activeSubmenu)
-            ?.submenu.map((submenuEntry, index) => {
-              if (isSubMenuSection(submenuEntry)) {
-                return (
-                  <div key={index}>
-                    <h3 className="font-semibold text-lg mb-2">
-                      {submenuEntry.title}
-                    </h3>
-                    <ul className="space-y-2">
-                      {submenuEntry.items.map((item) => (
-                        <li key={item.name}>
-                          <Link
-                            href={item.href}
-                            className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
-                          >
-                            {item.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )
-              } else {
-                return (
-                  <div key={index}>
-                    <Link
-                      href={submenuEntry.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
-                    >
-                      {submenuEntry.name}
-                    </Link>
-                  </div>
-                )
-              }
-            })}
-        </div>
-      </div>
-    </div>
-  )}
+        {activeSubmenu &&
+          menuItems.find((item) => item.name === activeSubmenu)?.submenu && (
+            <div
+              ref={submenuRef}
+              className="absolute left-0 w-full bg-background border-y shadow-lg overflow-hidden transition-all duration-300 ease-in-out"
+              style={{
+                top: "64px",
+                maxHeight: activeSubmenu ? "500px" : "0",
+                opacity: activeSubmenu ? 1 : 0,
+              }}
+              onMouseEnter={() => handleMouseEnter(activeSubmenu)}
+              onMouseLeave={handleMouseLeave}
+            >
+              <div className="container mx-auto px-4 py-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                  {menuItems
+                    .find((item) => item.name === activeSubmenu)
+                    ?.submenu.map((submenuEntry, index) => {
+                      if (isSubMenuSection(submenuEntry)) {
+                        return (
+                          <div key={index}>
+                            <h3 className="font-semibold text-lg mb-2">
+                              {submenuEntry.title}
+                            </h3>
+                            <ul className="space-y-2">
+                              {submenuEntry.items.map((item) => (
+                                <li key={item.name}>
+                                  <Link
+                                    href={item.href}
+                                    className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                                  >
+                                    {item.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div key={index}>
+                            <Link
+                              href={submenuEntry.href}
+                              className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                            >
+                              {submenuEntry.name}
+                            </Link>
+                          </div>
+                        );
+                      }
+                    })}
+                </div>
+              </div>
+            </div>
+          )}
       </nav>
 
       {/* Mobile menu - Slide from right */}
@@ -327,14 +357,18 @@ export default function Header() {
                     <span className="font-medium">{item.name}</span>
                     <ChevronRight
                       className={`h-5 w-5 transition-transform duration-200 ${
-                        expandedMobileMenus.includes(item.name) ? "rotate-90" : ""
+                        expandedMobileMenus.includes(item.name)
+                          ? "rotate-90"
+                          : ""
                       }`}
                     />
                   </button>
 
                   <div
                     className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      expandedMobileMenus.includes(item.name) ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+                      expandedMobileMenus.includes(item.name)
+                        ? "max-h-[1000px] opacity-100"
+                        : "max-h-0 opacity-0"
                     }`}
                   >
                     <div className="pb-4 pl-4">
@@ -342,7 +376,9 @@ export default function Header() {
                         <div key={sectionIndex} className="mb-4">
                           {"title" in submenuItem ? (
                             <>
-                              <h4 className="font-semibold text-sm mb-2">{submenuItem.title}</h4>
+                              <h4 className="font-semibold text-sm mb-2">
+                                {submenuItem.title}
+                              </h4>
                               <ul className="space-y-2">
                                 {submenuItem.items.map((subitem) => (
                                   <li key={subitem.name}>
@@ -379,9 +415,11 @@ export default function Header() {
 
       {/* Overlay for mobile menu */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-black/20 lg:hidden z-[75]" onClick={() => setIsMenuOpen(false)} />
+        <div
+          className="fixed inset-0 bg-black/20 lg:hidden z-[75]"
+          onClick={() => setIsMenuOpen(false)}
+        />
       )}
     </header>
-  )
+  );
 }
-

@@ -1,8 +1,15 @@
-import Layout from "../../components/layout"
-import Breadcrumb from "../../components/breadcrumb"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import BackgroundBricks from "../../components/background-bricks"
+import Layout from "../../components/layout";
+import Breadcrumb from "../../components/breadcrumb";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import BackgroundBricks from "../../components/background-bricks";
 
 const curriculum = [
   {
@@ -11,7 +18,11 @@ const curriculum = [
       {
         name: "Fall Semester",
         courses: [
-          { code: "CSE101", name: "Introduction to Computer Science", credits: 3 },
+          {
+            code: "CSE101",
+            name: "Introduction to Computer Science",
+            credits: 3,
+          },
           { code: "MATH101", name: "Calculus I", credits: 4 },
           { code: "PHYS101", name: "Physics I", credits: 4 },
           { code: "ENG101", name: "English Composition", credits: 3 },
@@ -36,7 +47,11 @@ const curriculum = [
       {
         name: "Fall Semester",
         courses: [
-          { code: "CSE201", name: "Data Structures and Algorithms", credits: 4 },
+          {
+            code: "CSE201",
+            name: "Data Structures and Algorithms",
+            credits: 4,
+          },
           { code: "CSE202", name: "Digital Logic Design", credits: 3 },
           { code: "MATH201", name: "Linear Algebra", credits: 3 },
           { code: "CSE203", name: "Object-Oriented Programming", credits: 3 },
@@ -63,7 +78,11 @@ const curriculum = [
         courses: [
           { code: "CSE301", name: "Operating Systems", credits: 4 },
           { code: "CSE302", name: "Computer Networks", credits: 3 },
-          { code: "CSE303", name: "Algorithms Design and Analysis", credits: 3 },
+          {
+            code: "CSE303",
+            name: "Algorithms Design and Analysis",
+            credits: 3,
+          },
           { code: "CSE304", name: "Web Development", credits: 3 },
           { code: "CSE305", name: "Technical Writing", credits: 2 },
         ],
@@ -72,7 +91,11 @@ const curriculum = [
         name: "Spring Semester",
         courses: [
           { code: "CSE306", name: "Artificial Intelligence", credits: 3 },
-          { code: "CSE307", name: "Software Testing and Quality Assurance", credits: 3 },
+          {
+            code: "CSE307",
+            name: "Software Testing and Quality Assurance",
+            credits: 3,
+          },
           { code: "CSE308", name: "Computer Graphics", credits: 3 },
           { code: "CSE309", name: "Machine Learning", credits: 3 },
           { code: "CSE310", name: "Ethics in Computing", credits: 2 },
@@ -105,7 +128,7 @@ const curriculum = [
       },
     ],
   },
-]
+];
 
 export default function CSEProgramPage() {
   return (
@@ -121,7 +144,11 @@ export default function CSEProgramPage() {
           ]}
         />
         <div className="relative py-16 mb-12">
-          <BackgroundBricks patternColor="#fb3a5d" backgroundColor="#f8f9fa" className="opacity-10" />
+          <BackgroundBricks
+            patternColor="#fb3a5d"
+            backgroundColor="#f8f9fa"
+            className="opacity-10"
+          />
           <h1 className="text-4xl md:text-5xl font-bold text-center relative z-10">
             Bachelor of Science in Computer Science and Engineering
           </h1>
@@ -133,15 +160,20 @@ export default function CSEProgramPage() {
           </CardHeader>
           <CardContent>
             <p>
-              The Bachelor of Science in Computer Science and Engineering program is designed to provide students with a
-              strong foundation in both theoretical and practical aspects of computing. This comprehensive program
-              covers software development, hardware design, and the integration of both to create efficient and
+              The Bachelor of Science in Computer Science and Engineering
+              program is designed to provide students with a strong foundation
+              in both theoretical and practical aspects of computing. This
+              comprehensive program covers software development, hardware
+              design, and the integration of both to create efficient and
               innovative computing systems.
             </p>
             <ul className="list-disc pl-6 mt-4 space-y-2">
               <li>Duration: 4 years</li>
               <li>Total Credits: 130</li>
-              <li>Degree Awarded: Bachelor of Science (B.S.) in Computer Science and Engineering</li>
+              <li>
+                Degree Awarded: Bachelor of Science (B.S.) in Computer Science
+                and Engineering
+              </li>
             </ul>
           </CardContent>
         </Card>
@@ -186,8 +218,10 @@ export default function CSEProgramPage() {
           </CardHeader>
           <CardContent>
             <p>
-              Graduates of the Bachelor of Science in Computer Science and Engineering program are well-prepared for a
-              wide range of career opportunities in the technology sector. Some potential career paths include:
+              Graduates of the Bachelor of Science in Computer Science and
+              Engineering program are well-prepared for a wide range of career
+              opportunities in the technology sector. Some potential career
+              paths include:
             </p>
             <ul className="list-disc pl-6 mt-4 space-y-2">
               <li>Software Developer</li>
@@ -205,6 +239,5 @@ export default function CSEProgramPage() {
         </Card>
       </div>
     </Layout>
-  )
+  );
 }
-
