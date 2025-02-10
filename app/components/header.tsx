@@ -218,11 +218,22 @@ export default function Header() {
                   style={{ objectFit: "contain" }}
                 />
               </div>
-              <div className="hidden sm:block">
-                <h1 className="font-bold text-xl leading-none">Techsand</h1>
-                <p className="text-sm text-muted-foreground">
-                  International University
-                </p>
+              <div>
+                {/* Desktop View */}
+                <div className="hidden sm:block">
+                  <h1 className="font-bold text-xl leading-none">Techsand</h1>
+                  <p className="text-sm text-muted-foreground">
+                    International University
+                  </p>
+                </div>
+
+                {/* Mobile View */}
+                <div className="block sm:hidden">
+                  <h1 className="font-bold text-lg leading-none">Techsand</h1>
+                  <p className="text-xs text-muted-foreground">
+                    International University
+                  </p>
+                </div>
               </div>
             </Link>
             <div className="hidden lg:flex items-center space-x-1">

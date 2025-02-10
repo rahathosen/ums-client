@@ -1,30 +1,42 @@
-"use client"
+"use client";
 
-import { Mail, MapPin, User, Phone, Calendar, Book, MessageSquare } from "lucide-react"
-import Link from "next/link"
-import { useState, useEffect } from "react"
+import {
+  Mail,
+  MapPin,
+  User,
+  Phone,
+  Calendar,
+  Book,
+  MessageSquare,
+} from "lucide-react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const links = [
-  { icon: Mail, text: "contact@indok.edu", href: "mailto:contact@indok.edu" },
-  { icon: Phone, text: "+1 (555) 123-4567", href: "tel:+15551234567" },
+  {
+    icon: Mail,
+    text: "contact@techsand.edu",
+    href: "mailto:contact@techsand.edu",
+  },
+  { icon: Phone, text: "+880 1712-345678", href: "tel:+8801712345678" },
   { icon: MapPin, text: "Campus Map", href: "/campus-map" },
   { icon: Calendar, text: "Events", href: "/events" },
   { icon: Book, text: "Library", href: "/library" },
   { icon: MessageSquare, text: "AI Chat", href: "/ai-chat" },
-]
+];
 
 export default function TopBanner() {
-  const [isVisible, setIsVisible] = useState(true)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY < 40)
-    }
+      setIsVisible(window.scrollY < 40);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div
@@ -37,7 +49,11 @@ export default function TopBanner() {
           {/* Desktop view */}
           <div className="hidden md:flex space-x-4 text-sm">
             {links.map((link, index) => (
-              <Link key={index} href={link.href} className="flex items-center hover:underline">
+              <Link
+                key={index}
+                href={link.href}
+                className="flex items-center hover:underline"
+              >
                 <link.icon className="h-4 w-4 mr-1" />
                 <span>{link.text}</span>
               </Link>
@@ -59,7 +75,12 @@ export default function TopBanner() {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               ) : (
                 <svg
@@ -69,7 +90,12 @@ export default function TopBanner() {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
                 </svg>
               )}
             </button>
@@ -89,7 +115,11 @@ export default function TopBanner() {
         {isMobileMenuOpen && (
           <div className="md:hidden py-2 space-y-2">
             {links.map((link, index) => (
-              <Link key={index} href={link.href} className="flex items-center text-sm hover:underline py-1">
+              <Link
+                key={index}
+                href={link.href}
+                className="flex items-center text-sm hover:underline py-1"
+              >
                 <link.icon className="h-4 w-4 mr-2" />
                 <span>{link.text}</span>
               </Link>
@@ -98,6 +128,5 @@ export default function TopBanner() {
         )}
       </div>
     </div>
-  )
+  );
 }
-
