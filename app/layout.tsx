@@ -6,9 +6,28 @@ import type React from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Techsand International University",
+  title: {
+    default: "Techsand International University",
+    template: "%s | Techsand International University",
+  },
   description:
     "Student organization for Industrial Economics and Technology Management",
+  openGraph: {
+    title: "Techsand International University",
+    description:
+      "Student organization for Industrial Economics and Technology Management",
+    url: "/",
+    siteName: "Techsand International University",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "bn-BD",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

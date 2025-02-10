@@ -96,11 +96,11 @@ export default function HeroCarousel() {
                 {slides[currentIndex].title}
               </TextEffect>
             </h1>
-            <p className="text-base md:text-lg lg:text-xl text-gray-200 mb-6 md:mb-8">
+            <div className="text-base md:text-lg lg:text-xl text-gray-200 mb-6 md:mb-8">
               <TextEffect key={currentIndex} per="char" preset="fade">
                 {slides[currentIndex].subtitle}
               </TextEffect>
-            </p>
+            </div>
             <button className="px-6 py-2 md:px-8 md:py-3 bg-primary text-primary-foreground text-sm md:text-base rounded-md hover:bg-primary/90 transition-colors">
               Learn More
             </button>
