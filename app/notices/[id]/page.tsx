@@ -1,6 +1,7 @@
-import { notFound } from "next/navigation"
-import { Badge } from "@/components/ui/badge"
-import Breadcrumb from "../../components/breadcrumb"
+import { notFound } from "next/navigation";
+import { Badge } from "@/components/ui/badge";
+import Breadcrumb from "../../components/breadcrumb";
+import Layout from "@/app/components/layout";
 
 const notices = [
   {
@@ -38,32 +39,38 @@ const notices = [
     `,
   },
   // Add more notice details here...
-]
+];
 
 export default function NoticePage({ params }: { params: { id: string } }) {
-  const notice = notices.find((n) => n.id === Number.parseInt(params.id))
+  const notice = notices.find((n) => n.id === Number.parseInt(params.id));
 
   if (!notice) {
-    notFound()
+    notFound();
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Breadcrumb
-        items={[
-          { label: "Notices", href: "/notices" },
-          { label: notice.title, href: `/notices/${notice.id}` },
-        ]}
-      />
-      <div className="bg-white rounded-lg shadow-md p-6 mt-8">
-        <div className="flex justify-between items-start mb-4">
-          <h1 className="text-3xl font-bold">{notice.title}</h1>
-          <Badge>{notice.category}</Badge>
+    <Layout>
+      <div className="container mx-auto px-4 py-8">
+        <Breadcrumb
+          items={[
+            { label: "Notices", href: "/notices" },
+            { label: notice.title, href: `/notices/${notice.id}` },
+          ]}
+        />
+        <div className="bg-white rounded-lg shadow-md p-6 mt-8">
+          <div className="flex justify-between items-start mb-4">
+            <h1 className="text-3xl font-bold">{notice.title}</h1>
+            <Badge>{notice.category}</Badge>
+          </div>
+          <div className="text-sm text-muted-foreground mb-6">
+            Published on: {notice.date}
+          </div>
+          <div
+            className="prose max-w-none"
+            dangerouslySetInnerHTML={{ __html: notice.content }}
+          />
         </div>
-        <div className="text-sm text-muted-foreground mb-6">Published on: {notice.date}</div>
-        <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: notice.content }} />
       </div>
-    </div>
-  )
+    </Layout>
+  );
 }
-
