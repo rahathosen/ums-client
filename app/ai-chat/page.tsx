@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Layout from "../components/layout";
 import Breadcrumb from "../components/breadcrumb";
@@ -7,8 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import BackgroundBricks from "../components/background-bricks";
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import type React from "react";
 
 interface Message {
   id: string;
@@ -64,6 +68,44 @@ export default function AIChatPage() {
     }
   };
 
+  const renderMarkdown = (content: string) => {
+    return (
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        className="markdown-content"
+        components={{
+          p: ({ node, ...props }) => <p className="mb-4" {...props} />,
+          ul: ({ node, ...props }) => (
+            <ul className="list-disc pl-6 mb-4" {...props} />
+          ),
+          ol: ({ node, ...props }) => (
+            <ol className="list-decimal pl-6 mb-4" {...props} />
+          ),
+          li: ({ node, ...props }) => <li className="mb-2" {...props} />,
+          pre: ({ node, ...props }) => (
+            <pre
+              className="bg-gray-100 p-4 rounded-md mb-4 overflow-x-auto"
+              {...props}
+            />
+          ),
+          code: ({
+            inline,
+            ...props
+          }: { inline?: boolean } & React.HTMLAttributes<HTMLElement>) =>
+            inline ? (
+              <code className="bg-gray-100 px-1 py-0.5 rounded" {...props} />
+            ) : (
+              <pre className="bg-gray-100 p-4 rounded-md mb-4 overflow-x-auto">
+                <code {...props} />
+              </pre>
+            ),
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    );
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
@@ -95,49 +137,33 @@ export default function AIChatPage() {
                   }`}
                 >
                   <div
-                    className={`rounded-lg p-3 max-w-[80%] whitespace-pre-line ${
+                    className={`rounded-lg p-3 max-w-[80%] ${
                       m.role === "user"
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted"
                     }`}
                   >
                     {m.role === "assistant" ? (
-                      // Detect the thinking part first (before the separator "---")
                       m.content.includes("user asked") ? (
                         <div>
-                          {/* Highlighted "AI is thinking..." label */}
                           <div className="text-gray-400 italic">
                             <span className="font-semibold text-primary">
                               AI Thought...
                             </span>
-                            <div>{m.content.split("---")[0]}</div>
+                            {renderMarkdown(m.content.split("---")[0])}
                           </div>
                           <hr className="my-4" />
                           <div>
-                            {/* Highlighted "Output" label */}
                             <div className="text-gray-800">
                               <span className="font-semibold text-primary">
                                 AI Answer:
                               </span>
-                              <div>{m.content.split("---")[1]}</div>
+                              {renderMarkdown(m.content.split("---")[1])}
                             </div>
                           </div>
                         </div>
                       ) : (
-                        // If no thinking part, just display the regular answer
-                        <ul className="list-decimal list-inside space-y-2">
-                          {m.content.split(/\d+\.\s+/).map((item, index) =>
-                            item.trim() ? (
-                              <li
-                                key={index}
-                                className="flex items-center gap-2"
-                              >
-                                {/* <Send className="w-4 h-4 text-gray-500" /> */}
-                                <span>{item}</span>
-                              </li>
-                            ) : null
-                          )}
-                        </ul>
+                        renderMarkdown(m.content)
                       )
                     ) : (
                       <span>{m.content}</span>
@@ -155,7 +181,7 @@ export default function AIChatPage() {
                   initial={{ backgroundPosition: "200% 0" }}
                   animate={{ backgroundPosition: "-200% 0" }}
                   transition={{
-                    repeat: Infinity,
+                    repeat: Number.POSITIVE_INFINITY,
                     duration: 2,
                     ease: "linear",
                   }}
