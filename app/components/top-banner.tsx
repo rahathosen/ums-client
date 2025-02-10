@@ -18,7 +18,7 @@ const links = [
     text: "contact@techsand.edu",
     href: "mailto:contact@techsand.edu",
   },
-  { icon: Phone, text: "+880 1712-345678", href: "tel:+8801712345678" },
+  { icon: Phone, text: "+880 1330-459609", href: "tel:+8801330-459609" },
   { icon: MapPin, text: "Campus Map", href: "/campus-map" },
   { icon: Calendar, text: "Events", href: "/events" },
   { icon: Book, text: "Library", href: "/library" },

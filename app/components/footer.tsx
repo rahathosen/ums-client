@@ -1,5 +1,5 @@
-import Link from "next/link"
-import WeatherWidget from "./weather-widget"
+import Link from "next/link";
+import WeatherWidget from "./weather-widget";
 
 const footerLinks = [
   {
@@ -56,52 +56,62 @@ const footerLinks = [
       { name: "List of All Universities", href: "/universities" },
     ],
   },
-]
+];
 
 export default function Footer() {
   return (
     <footer className="bg-muted pt-12 rounded-md">
-  <div className="container mx-auto px-4">
-    <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
-      <div className="lg:col-span-4">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          {footerLinks.map((section, index) => (
-            <div key={index}>
-              <h3 className="font-bold text-lg mb-4">{section.title}</h3>
-              <ul className="space-y-2">
-                {section.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary">
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
+          <div className="lg:col-span-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+              {footerLinks.map((section, index) => (
+                <div key={index}>
+                  <h3 className="font-bold text-lg mb-4">{section.title}</h3>
+                  <ul className="space-y-2">
+                    {section.links.map((link, linkIndex) => (
+                      <li key={linkIndex}>
+                        <Link
+                          href={link.href}
+                          className="text-sm text-muted-foreground hover:text-primary"
+                        >
+                          {link.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <div className="lg:col-span-2">
+            <WeatherWidget />
+          </div>
         </div>
       </div>
-      <div className="lg:col-span-2">
-        <WeatherWidget />
-      </div>
-    </div>
-  </div>
 
-  {/* NEW FULL-WIDTH WHITE SECTION */}
-  <div className="bg-background w-full mt-8">
-    <div className="container mx-auto px-4 py-6  text-sm text-muted-foreground">
-      <div className="flex flex-col md:flex-row justify-between items-center">
-        <p>&copy; {new Date().getFullYear()} Industrial Economics Association. All rights reserved.</p>
-        <div className="flex space-x-4 mt-4 md:mt-0">
-          <Link href="/privacy-policy" className="hover:text-primary">Privacy Policy</Link>
-          <Link href="/terms-of-service" className="hover:text-primary">Terms of Service</Link>
-          <Link href="/contact" className="hover:text-primary">Contact Us</Link>
+      {/* NEW FULL-WIDTH WHITE SECTION */}
+      <div className="bg-background w-full mt-8">
+        <div className="container mx-auto px-4 py-6  text-sm text-muted-foreground">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p>
+              &copy; {new Date().getFullYear()} Techsand International
+              University. All rights reserved.
+            </p>
+            <div className="flex space-x-4 mt-4 md:mt-0">
+              <Link href="/privacy-policy" className="hover:text-primary">
+                Privacy Policy
+              </Link>
+              <Link href="/terms-of-service" className="hover:text-primary">
+                Terms of Service
+              </Link>
+              <Link href="/contact" className="hover:text-primary">
+                Contact Us
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</footer>
-
-  )
+    </footer>
+  );
 }
-
