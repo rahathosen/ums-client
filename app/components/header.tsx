@@ -90,9 +90,10 @@ const menuItems: MenuItem[] = [
     href: "/admissions",
     submenu: [
       { name: "Undergraduate Admissions", href: "/admission" },
-      { name: "Graduate Admissions", href: "/admissions/graduate" },
-      { name: "International Students", href: "/admissions/international" },
-      { name: "Financial Aid", href: "/admissions/financial-aid" },
+      { name: "Graduate Admissions", href: "/admission/graduate" },
+      { name: "International Students", href: "/admission/international" },
+      { name: "Financial Aid", href: "/admission/financial-aid" },
+      { name: "Apply", href: "/admission/apply" },
     ],
   },
   {
