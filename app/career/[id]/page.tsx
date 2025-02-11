@@ -1,6 +1,7 @@
-import { notFound } from "next/navigation"
-import { Badge } from "@/components/ui/badge"
-import Breadcrumb from "../../components/breadcrumb"
+import { notFound } from "next/navigation";
+import { Badge } from "@/components/ui/badge";
+import Breadcrumb from "../../components/breadcrumb";
+import Layout from "@/app/components/layout";
 
 const jobs = [
   {
@@ -31,44 +32,50 @@ const jobs = [
     `,
   },
   // Add more job details here...
-]
+];
 
 export default function JobPage({ params }: { params: { id: string } }) {
-  const job = jobs.find((j) => j.id === Number.parseInt(params.id))
+  const job = jobs.find((j) => j.id === Number.parseInt(params.id));
 
   if (!job) {
-    notFound()
+    notFound();
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Breadcrumb
-        items={[
-          { label: "Career Opportunities", href: "/career" },
-          { label: job.title, href: `/career/${job.id}` },
-        ]}
-      />
-      <div className="bg-white rounded-lg shadow-md p-6 mt-8">
-        <div className="flex justify-between items-start mb-4">
-          <h1 className="text-3xl font-bold">{job.title}</h1>
-          <Badge>{job.type}</Badge>
-        </div>
-        <div className="text-sm text-muted-foreground mb-6">Posted on: {job.posted}</div>
-        <div className="mb-6">
-          <p className="font-semibold">Department: {job.department}</p>
-          <p className="font-semibold">Location: {job.location}</p>
-        </div>
-        <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: job.description }} />
-        <div className="mt-8">
-          <a
-            href="#"
-            className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-          >
-            Apply Now
-          </a>
+    <Layout>
+      <div className="container mx-auto px-4 py-8">
+        <Breadcrumb
+          items={[
+            { label: "Career Opportunities", href: "/career" },
+            { label: job.title, href: `/career/${job.id}` },
+          ]}
+        />
+        <div className="bg-white rounded-lg shadow-md p-6 mt-8">
+          <div className="flex justify-between items-start mb-4">
+            <h1 className="text-3xl font-bold">{job.title}</h1>
+            <Badge>{job.type}</Badge>
+          </div>
+          <div className="text-sm text-muted-foreground mb-6">
+            Posted on: {job.posted}
+          </div>
+          <div className="mb-6">
+            <p className="font-semibold">Department: {job.department}</p>
+            <p className="font-semibold">Location: {job.location}</p>
+          </div>
+          <div
+            className="prose max-w-none"
+            dangerouslySetInnerHTML={{ __html: job.description }}
+          />
+          <div className="mt-8">
+            <a
+              href="#"
+              className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+            >
+              Apply Now
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    </Layout>
+  );
 }
-
