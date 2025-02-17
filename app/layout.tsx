@@ -37,6 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
+      <script async src="https://cdn.splitbee.io/sb.js"></script>
       <body>{children}</body>
     </html>
   );
